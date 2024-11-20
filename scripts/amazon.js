@@ -1,3 +1,7 @@
+//import cart and products
+import { cart } from "../data/cart.js";
+import { products } from "../data/products.js";
+
 // Generate products html
 let productsHTML = '';
 
