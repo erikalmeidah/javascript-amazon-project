@@ -108,7 +108,7 @@ export function renderOrderSummary() {
     //delete button event listener
     document.querySelectorAll('.js-delete-link').forEach((link) => {
         link.addEventListener('click', () => {
-            const productId = link.dataset.productId;
+            const productId = link.dataset.productId;     
             removeFromCart(productId);
             const container = document.querySelector(`.js-cart-item-container-${productId}`);
             container.remove();

@@ -58,7 +58,7 @@ export function renderPaymentSummary() {
             <div class="payment-summary-money">$${formatCurrency(totalCents)}</div>
         </div>
 
-        <button class="place-order-button button-primary">
+        <button class="place-order-button button-primary js-place-order-button">
             Place your order
         </button>
     `;
