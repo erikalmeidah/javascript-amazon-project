@@ -11,10 +11,8 @@ function saveToStorage() {
 //export method to add to order list and re-render
 export function addToOrder() {
     // loop through cart, adding every item to orders
-    cart.forEach((cartItem) => {
-        orders.push(cartItem);
-    });
-
+    const currOrder = [...cart];
+    orders.push(currOrder);
     //reset cart
     cart.length = 0;
 

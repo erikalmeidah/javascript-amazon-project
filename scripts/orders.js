@@ -1,5 +1,7 @@
 import {cart, addToCart} from "../data/cart.js";
 import { orders } from "../data/orderList.js";
+import dayjs from "https://unpkg.com/dayjs@1.11.10/esm/index.js";
+import { products } from "../data/products.js";
 
 //function to update cart quantity based on cart list
 function updateCartQuantity() {
@@ -13,65 +15,79 @@ updateCartQuantity();
 
 //function to render orders html
 function renderOrderPage() {
-  console.log(orders);
-    let orderHTML = '';
-    orders.forEach((order) => {
-        orderHTML += `
-        <div class="order-container"> 
-          <div class="order-header">
-              <div class="order-header-left-section">
-                <div class="order-date">
-                  <div class="order-header-label">Order Placed:</div>
-                  <div>August 12</div>
-                </div>
-                <div class="order-total">
-                  <div class="order-header-label">Total:</div>
-                  <div>$35.06</div>
-                </div>
-              </div>
-
-              <div class="order-header-right-section">
-                <div class="order-header-label">Order ID:</div>
-                <div>27cba69d-4c3d-4098-b42d-ac7fa62b7664</div>
-              </div>
-            </div>
-
-            <div class="order-details-grid">
-              <div class="product-image-container">
-                <img src="images/products/athletic-cotton-socks-6-pairs.jpg">
-              </div>
-
-              <div class="product-details">
-                <div class="product-name">
-                  Black and Gray Athletic Cotton Socks - 6 Pairs
-                </div>
-                <div class="product-delivery-date">
-                  Arriving on: August 15
-                </div>
-                <div class="product-quantity">
-                  Quantity: 1
-                </div>
-                <button class="buy-again-button button-primary js-buy-again-button"
-                data-product-id=${order.productId}>
-                  <img class="buy-again-icon" src="images/icons/buy-again.png">
-                  <span class="buy-again-message">Buy it again</span>
-                </button>
-              </div>
-
-              <div class="product-actions">
-                <a href="tracking.html">
-                  <button class="track-package-button button-secondary">
-                    Track package
-                  </button>
-                </a>
-              </div>
-
-            </div>
+  let fullHTML = "";
+  //create header
+  const today = dayjs();
+  const dateString = today.format('MMMM D');
+  const total = "FIXME";
+  let orderHeaderHTML = "";
+  
+  //create order html
+  orders.forEach((order) => { 
+    orderHeaderHTML = `
+    <div class="order-container"> 
+      <div class="order-header">
+        <div class="order-header-left-section">
+          <div class="order-date">
+            <div class="order-header-label">Order Placed:</div>
+            <div>${dateString}</div>
+          </div>
+          <div class="order-total">
+            <div class="order-header-label">Total:</div>
+            <div>$${total}</div>
           </div>
         </div>
-        `;
+
+        <div class="order-header-right-section">
+          <div class="order-header-label">Order ID:</div>
+          <div>27cba69d-4c3d-4098-b42d-ac7fa62b7664</div>
+        </div>
+      </div>
+
+      <div class="order-details-grid">
+    `;
+    let orderHTML = "";
+    order.forEach((orderItem) => {
+      //get product based on id
+      const matchingItem = products.find(product => product.id === orderItem.productId);
+      //generate html
+      orderHTML += `
+        <div class="product-image-container">
+          <img src="${matchingItem.image}">
+        </div>
+
+        <div class="product-details">
+          <div class="product-name">
+            ${matchingItem.name}
+          </div>
+          <div class="product-delivery-date">
+            Arriving on: ${"FIXME"}
+          </div>
+          <div class="product-quantity">
+            Quantity: ${orderItem.quantity}
+          </div>
+          <button class="buy-again-button button-primary js-buy-again-button"
+            data-product-id=${matchingItem.id}>
+            <img class="buy-again-icon" src="images/icons/buy-again.png">
+            <span class="buy-again-message">Buy it again</span>
+          </button>
+        </div>
+
+        <div class="product-actions">
+          <a href="tracking.html">
+            <button class="track-package-button button-secondary">
+              Track package
+            </button>
+          </a>
+        </div>
+      `;
     });
-    document.querySelector('.js-orders-grid').innerHTML = orderHTML;
+    const endingHTML = `
+      </div>
+    </div>`;
+    fullHTML = orderHeaderHTML + orderHTML + endingHTML + fullHTML;
+  });
+  document.querySelector('.js-orders-grid').innerHTML = fullHTML;
 } 
 renderOrderPage();
 
