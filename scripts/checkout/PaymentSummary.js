@@ -58,11 +58,41 @@ export function renderPaymentSummary() {
             <div class="payment-summary-money">$${formatCurrency(totalCents)}</div>
         </div>
 
-        <button class="place-order-button button-primary js-place-order-button">
-            Place your order
-        </button>
+        <div class="js-payment-options">
+            Use PayPal <input type="checkbox" class="js-paypal" style="transform:scale(1.5); margin:10px;">
+            <button class="place-order-button button-primary js-place-order-button">
+                Place your order
+            </button>
+        </div>  
     `;
 
     //render
     document.querySelector('.js-payment-summary').innerHTML = PaymentSummaryHTML;
+
+    //paypal functionality
+    const paypalCheckbox = document.querySelector('.js-paypal');
+    const paymentOptionsContainer = document.querySelector('.js-payment-options');
+    paypalCheckbox.addEventListener('change', () => {
+        if (paypalCheckbox.checked) {
+            paymentOptionsContainer.innerHTML = `
+            Use PayPal <input type="checkbox" class="js-paypal" style="transform:scale(1.5); margin:10px;" checked>
+                <div class="js-payment-options" style="display:grid; justify-items:center;">
+                    <button class="place-order-button button-primary js-place-order-button">
+                        PayPal
+                    </button>
+                    <button>Debit or Credit Card</button>
+                    <span>Powered by PayPal</span>
+                </div>
+            `;
+        } else {
+            paymentOptionsContainer.innerHTML = `
+                <div class="js-payment-options">
+                    Use PayPal <input type="checkbox" class="js-paypal" style="transform:scale(1.5); margin:10px;">
+                    <button class="place-order-button button-primary js-place-order-button">
+                        Place your order
+                    </button>
+                </div>
+            `;
+        }
+    });
 }

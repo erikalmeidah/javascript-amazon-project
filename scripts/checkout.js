@@ -27,6 +27,17 @@ export function itemCounter() {
 //delete button event listener to update itemCounter
 document.querySelectorAll('.js-delete-link').forEach((link) => {
     link.addEventListener('click', () => {
+        renderOrderSummary();
+        renderPaymentSummary();
+        itemCounter();
+    });
+});
+
+//update button event listener to update itemCounter
+document.querySelectorAll('.js-update-link').forEach((link) => {
+    link.addEventListener('click', () => {
+        renderOrderSummary();
+        renderPaymentSummary();
         itemCounter();
     });
 });
