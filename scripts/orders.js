@@ -2,6 +2,8 @@ import {cart, addToCart} from "../data/cart.js";
 import { orders } from "../data/orderList.js";
 import dayjs from "https://unpkg.com/dayjs@1.11.10/esm/index.js";
 import { products } from "../data/products.js";
+import { getDeliveryOption } from "../data/deliveryOptions.js";
+import { formatCurrency } from "./utils/money.js"
 
 //function to update cart quantity based on cart list
 function updateCartQuantity() {
@@ -19,11 +21,16 @@ function renderOrderPage() {
   //create header
   const today = dayjs();
   const dateString = today.format('MMMM D');
-  const total = "FIXME";
   let orderHeaderHTML = "";
   
   //create order html
   orders.forEach((order) => { 
+    let total = 0;
+    order.forEach((orderItem) => {
+      const matchingItem = products.find(product => product.id === orderItem.productId);
+      total += (matchingItem.priceCents * orderItem.quantity) + getDeliveryOption(orderItem.deliveryOptionId).priceCents;
+    });
+
     orderHeaderHTML = `
     <div class="order-container"> 
       <div class="order-header">
@@ -34,7 +41,7 @@ function renderOrderPage() {
           </div>
           <div class="order-total">
             <div class="order-header-label">Total:</div>
-            <div>$${total}</div>
+            <div>$${formatCurrency(total)}</div>
           </div>
         </div>
 
@@ -50,6 +57,8 @@ function renderOrderPage() {
     order.forEach((orderItem) => {
       //get product based on id
       const matchingItem = products.find(product => product.id === orderItem.productId);
+      const deliveryTime = getDeliveryOption(orderItem.deliveryOptionId).deliveryDays;
+      const deliveryDate = today.add(deliveryTime, "days").format('MMMM D');
       //generate html
       orderHTML += `
         <div class="product-image-container">
@@ -61,7 +70,7 @@ function renderOrderPage() {
             ${matchingItem.name}
           </div>
           <div class="product-delivery-date">
-            Arriving on: ${"FIXME"}
+            Arriving on: ${deliveryDate}
           </div>
           <div class="product-quantity">
             Quantity: ${orderItem.quantity}
