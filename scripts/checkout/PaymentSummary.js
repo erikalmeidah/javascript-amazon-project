@@ -80,8 +80,8 @@ export function renderPaymentSummary() {
                     <button class="place-order-button button-primary js-place-order-button">
                         PayPal
                     </button>
-                    <button>Debit or Credit Card</button>
-                    <span>Powered by PayPal</span>
+                    <button style="background-color: black; color: white; border: none; width: 310px; height: 45px; border-radius: 10px;">Debit or Credit Card</button>
+                    <span style="margin-top:10px;">Powered by PayPal</span>
                 </div>
             `;
         } else {
