@@ -2,13 +2,18 @@ import { products } from "./products.js";
 import {formatCurrency} from "../scripts/utils/money.js";
 import { getDeliveryOption } from "./deliveryOptions.js";
 
-export let cart = JSON.parse(localStorage.getItem('cart')) || [];
+export let cart;
+loadFromStorage();
+
+export function loadFromStorage(){
+    cart = JSON.parse(localStorage.getItem('cart')) || [];
+};
 
 export function saveToStorage() {
     localStorage.setItem('cart', JSON.stringify(cart));
 }
 
-export function addToCart(productId, quantity) {
+export function addToCart(productId, quantity=1) {
     let matchingItem;
 
     cart.forEach((cartItem) => {
