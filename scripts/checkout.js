@@ -2,7 +2,7 @@ import { renderOrderSummary } from "./checkout/orderSummary.js";
 import { renderPaymentSummary } from "./checkout/PaymentSummary.js";
 import { addToOrder } from "../data/orderList.js";
 import { cart } from "../data/cart.js";
-
+import '../data/cart-oop.js';
 //render order summary to screen
 renderOrderSummary();
 renderPaymentSummary();
