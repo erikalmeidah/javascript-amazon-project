@@ -2,12 +2,14 @@ import { renderOrderSummary } from "./checkout/orderSummary.js";
 import { renderPaymentSummary } from "./checkout/PaymentSummary.js";
 import { addToOrder } from "../data/orderList.js";
 import { cart } from "../data/cart.js";
-//import '../data/backend-practice.js';
-//import '../data/cart-class.js';
+
 //render order summary to screen
-renderOrderSummary();
-renderPaymentSummary();
-itemCounter();
+function loadProducts() {
+    renderOrderSummary();
+    renderPaymentSummary();
+    itemCounter();
+}
+loadProducts();
 
 //Place order button functionality
 const placeOrderButton = document.querySelector('.js-place-order-button');

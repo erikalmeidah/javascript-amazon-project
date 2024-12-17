@@ -1,7 +1,3 @@
-import { products } from "./products.js";
-import {formatCurrency} from "../scripts/utils/money.js";
-import { getDeliveryOption } from "./deliveryOptions.js";
-
 export let cart;
 loadFromStorage();
 

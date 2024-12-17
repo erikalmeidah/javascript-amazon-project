@@ -1,7 +1,6 @@
 //import cart and products
 import { cart, addToCart } from "../data/cart.js";
 import { products } from "../data/products.js";
-import { formatCurrency } from "./utils/money.js";
 
 function generateProductGrid(products) {
   // Generate products html
